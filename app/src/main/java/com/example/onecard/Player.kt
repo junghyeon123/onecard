@@ -1,4 +1,5 @@
 package com.example.onecard
 
-class Player {
-}
+data class Player (
+    val cards:List<Card>
+)

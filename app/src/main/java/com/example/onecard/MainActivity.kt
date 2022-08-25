@@ -27,16 +27,40 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OnecardTheme {
+                val player1 = Player(
+                    listOf(
+                        Card(CardType.Club, 2),
+                        Card(CardType.Heart, 3),
+                        Card(CardType.Spade, 4),
+                        Card(CardType.Heart, 5),
+                        Card(CardType.Spade, 6),
+                        Card(CardType.Club, 7),
+                        Card(CardType.Heart, 8),
+                    )
+                )
+
+                val player2 = Player(
+                    listOf(
+                        Card(CardType.Club, 2),
+                        Card(CardType.Heart, 3),
+                        Card(CardType.Spade, 4),
+                        Card(CardType.Heart, 5),
+                        Card(CardType.Spade, 6),
+                        Card(CardType.Club, 7),
+                        Card(CardType.Heart, 8),
+                    )
+                )
                 Column() {
                     Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                        (1..7).forEach {
-                            Card(R.drawable.card_back)
+                        player1.cards.forEach { card: Card ->
+                                Card(resId = card.getDrawable())
                         }
                     }
-                    
-                    Row(modifier = Modifier.weight(1f),
+
+                    Row(
+                        modifier = Modifier.weight(1f),
                         verticalAlignment = Alignment.CenterVertically
-                        ){
+                    ) {
                         Box(modifier = Modifier.weight(1f))
                         Card(R.drawable.card_back)
                         Box(modifier = Modifier.weight(1f))
@@ -45,8 +69,8 @@ class MainActivity : ComponentActivity() {
                     }
 
                     Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                        (1..7).forEach {
-                            Card(R.drawable.diamonds_5)
+                        player1.cards.forEach { card: Card ->
+                            Card(resId = card.getDrawable())
                         }
                     }
                 }
@@ -57,11 +81,13 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun RowScope.Card(@DrawableRes resId: Int){
+fun RowScope.Card(@DrawableRes resId: Int) {
     Image(
         painter = painterResource(id = resId),
         contentDescription = null,
-        modifier = Modifier.weight(1f).height(90.dp),
+        modifier = Modifier
+            .weight(1f)
+            .height(90.dp),
         contentScale = ContentScale.Fit
     )
 }
